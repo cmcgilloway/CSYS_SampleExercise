@@ -1,0 +1,21 @@
+------------
+Updates Made
+------------
+
+- Updated all classes to be a derived class of a base "Entity" class.  I found that all of the entity types had the EntityId and Associations members in common, so organizing the classes this way would help with common operations that would be done on them as well.
+- For each entity type, I created a repository class to be used for direct interaction with each entity list.  Then, I created an overarching DataAnalysisService class to do the integration between each entity to get the answers needed for the rest of the exercise questions.  I prefer things organized in this "Single Responsibility Principle" way as changes to one of these smaller classes then has less of a chance to adversely affect functionality in other classes.
+- Updated the members with the possibly null (?) modifier when applicable.  With the C# version popping up warnings for all of the members, I added the modifier in to clear the warnings so they would not bury more relevant warnings/errors in the build output.
+- Similar to the above, I added clauses for null possibilities whenever possible.
+
+------------------------------------------------
+Updates I would Immediately Make Given More Time
+------------------------------------------------
+- The first thing I would do is flesh out the repository classes, so they would all have at least basic Create/Read/Update/Delete operations.  For the purposes of this project, I only added in the necessary functions to complete the questions, but the application is not as robust as needed.
+- With reading operations, I limited the functions to either match a single object on exact member matches (for questions 5 and 6), get an entity by its EntityId value (also used for questions 5 and 6), or do a partial match on EntityId (used for question 8).  Ideally I would want to flesh that out more, to at least be able to partial match on any entity member, and make sure each string member search is case-insensitive.
+- I would also merge the "GetById" function in each repository class with the "GetFullEntity" function, as the EntityId is just another member of the entity. Since both functions have the same end result (get a single entity based on an exact match of one or more members), merging them to one function would make things easier to maintain if a change to the entity structure were to occur in the future.
+
+----------------------------------------
+Updates I would Make Given Infinite Time
+----------------------------------------
+- Reading the JSON files into individual list objects is not too easy to maintain as the lists would grow, so I would advocate for moving the data into a more database-driven solution.  Since these are JSON lists, my mind heads towards using mongoDB.  In this case, it would allow for a more standardized library (MongoDB.Driver, EntityFramework, etc.) to be implemented to handle data operations.  
+- I also would want to add unit testing as much as possible, as I have found it to be extremely helpful to identify possible issues before an application goes out into the wild.  I put this improvement here as adding unit testing to an existing project has the potential to take a long time, and if the application is on a tight schedule then it may not be in the cards.  However, I feel that the benefits greatly help with keeping a project maintainable, that it outweighs the extra time needed to add it in.
